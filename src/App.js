@@ -9,6 +9,14 @@ class App extends Component {
             list: ['Sacar la ropa', 'Hacer la cama', 'Leer un rato']
         }
     }
+
+    addItem= (e) => {
+        const newItem = e.target.value;
+        const oldList = this.state.list
+        this.setState( (state) => {
+            return {list: [...oldList, newItem]}
+        })
+    }
   render() {
     return (
       <div className="wrapper">
@@ -22,7 +30,9 @@ class App extends Component {
               }
           </ul>
            <form>
-             <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" />
+             <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter"
+             onChange={ this.addItem }
+             />
            </form>
         </div>
       </div>
