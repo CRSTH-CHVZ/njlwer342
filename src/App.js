@@ -6,15 +6,25 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            list: ['Sacar la ropa', 'Hacer la cama', 'Leer un rato']
+            list: ['Sacar la ropa', 'Hacer la cama', 'Leer un rato'],
+            str: ''
         }
     }
-
+    changeStr = (e) => {
+        const newString = e.target.value;
+        this.setState( () => {
+            return{ str: newString}
+        })
+    }
     addItem= (e) => {
-        const newItem = e.target.value;
-        const oldList = this.state.list
+        e.preventDefault();
+        if( this.state.str === '') return
+        const oldList = this.state.list;
         this.setState( (state) => {
-            return {list: [...oldList, newItem]}
+            return {list: [ ...oldList, this.state.str ]}
+        })
+        this.setState( () => {
+            return{ str: ''}
         })
     }
   render() {
@@ -29,9 +39,10 @@ class App extends Component {
                   })
               }
           </ul>
-           <form>
+           <form onSubmit={  this.addItem }>
              <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter"
-             onChange={ this.addItem }
+                    value={ this.state.str }
+                    onChange={ this.changeStr }
              />
            </form>
         </div>
